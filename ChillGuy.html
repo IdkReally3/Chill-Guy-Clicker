@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click Da Chill Guy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #e8ff8b;
+    }
+    #clickerContainer, #shopContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+    #ChillGuy {
+      display: block;
+      margin: 20px auto;
+      cursor: pointer;
+      width: 200px;
+      height: auto;
+      transition: transform 0.15s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.15s;
+    }
+    #ChillGuy:hover {
+      transform: scale(1.18);
+      box-shadow: 0 8px 32px 0 #e8ff8b;
+      z-index: 2;
+    }
+    #ChillGuy.bounce {
+      animation: bounce 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes bounce {
+      0%   { transform: scale(1.18) translateY(0); }
+      30%  { transform: scale(1.25,0.9) translateY(-18px);}
+      50%  { transform: scale(0.95,1.1) translateY(6px);}
+      70%  { transform: scale(1.08,0.97) translateY(-8px);}
+      100% { transform: scale(1.18) translateY(0);}
+    }
+    button {
+      width: 260px;
+      padding: 16px 0;
+      margin: 10px 0;
+      font-size: 1.2em;
+      border-radius: 8px;
+      border: none;
+      background: #ddd728;
+      color: white;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #c6c01a;
+    }
+    h1, h2, p {
+      text-align: center;
+    }
+    /* Hide audio controls */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="clickerContainer">
+    <h1>Click Dis Chill Guy!!</h1>
+    <p>Chill Points: <span id="money">0</span></p>
+    <img src="ChillGuy.png" alt="ChillGuy" id="ChillGuy" onclick="clickChillGuy()">
+  </div>
+  
+  <div id="shopContainer">
+    <h2>Shop</h2>
+    <p>Chill Lemonades: <span id="mpc">1</span></p>
+    <p>(Chill Lemonades add one more chill point per click)</p>
+    <button onclick="upgradeMPC()">Buy A Chill Lemonade (Cost: <span id="mpcCost">10</span> Chill Points)</button>
+    <p>Super Lemonades: <span id="mpc5">0</span></p>
+    <p>(Super Lemonades add 5 more chill points per click)</p>
+    <button onclick="upgradeMPC5()">Buy A Super Lemonade (Cost: <span id="mpc5Cost">80</span> Chill Points)</button>
+    <p>Cool Glasses: <span id="mps">0</span></p>
+    <p>(Cool Glasses give you one more Chill Point Per Second)</p>
+    <button onclick="buyMPS()">Buy Cool Glasses (Cost: <span id="mpsCost">50</span> Chill Points)</button>
+  </div>
+
+  <!-- Hidden audio elements for background music -->
+  <audio id="audio1" src="Fluffing a Duck [TubeRipper.com].mp3"></audio>
+  <audio id="audio2" src="Kevin MacLeod Pixel Peeker Polka - faster [TubeRipper.com].mp3"></audio>
+  <audio id="audio3" src="Move Forward [TubeRipper.com].mp3"></audio>
+
+  <script>
+    let money = 0;
+    let mpc = 1; // Money per click (from Lemonades)
+    let mpcCost = 10;
+    let mpc5 = 0; // Number of Super Lemonades
+    let mpc5Cost = 80;
+    let mps = 0; // Money per second
+    let mpsCost = 50;
+    let mpsInterval = null;
+
+    function updateUI() {
+      document.getElementById('money').textContent = money;
+      document.getElementById('mpc').textContent = mpc;
+      document.getElementById('mpcCost').textContent = mpcCost;
+      document.getElementById('mpc5').textContent = mpc5;
+      document.getElementById('mpc5Cost').textContent = mpc5Cost;
+      document.getElementById('mps').textContent = mps;
+      document.getElementById('mpsCost').textContent = mpsCost;
+    }
+
+    function clickChillGuy() {
+      money += mpc + mpc5 * 5;
+      updateUI();
+      // Bounce effect
+      const chillGuy = document.getElementById('ChillGuy');
+      chillGuy.classList.remove('bounce'); // reset if already bouncing
+      void chillGuy.offsetWidth; // force reflow
+      chillGuy.classList.add('bounce');
+    }
+
+    function upgradeMPC() {
+      if (money >= mpcCost) {
+        money -= mpcCost;
+        mpc += 1;
+        mpcCost = Math.floor(mpcCost * 1.5);
+        updateUI();
+      }
+    }
+
+    function upgradeMPC5() {
+      if (money >= mpc5Cost) {
+        money -= mpc5Cost;
+        mpc5 += 1;
+        mpc5Cost = Math.floor(mpc5Cost * 1.7);
+        updateUI();
+      }
+    }
+
+    function buyMPS() {
+      if (money >= mpsCost) {
+        money -= mpsCost;
+        mps += 1;
+        mpsCost = Math.floor(mpsCost * 1.7);
+        updateUI();
+        if (!mpsInterval) {
+          mpsInterval = setInterval(() => {
+            money += mps;
+            updateUI();
+          }, 1000);
+        }
+      }
+    }
+
+    // --- Space bar click: only on keydown, not when held ---
+    let spacePressed = false;
+    document.addEventListener('keydown', function(e) {
+      if ((e.code === 'Space' || e.key === ' ') && !spacePressed) {
+        spacePressed = true;
+        clickChillGuy();
+        e.preventDefault();
+      }
+    });
+    document.addEventListener('keyup', function(e) {
+      if (e.code === 'Space' || e.key === ' ') {
+        spacePressed = false;
+      }
+    });
+
+    // Remove bounce class after animation ends
+    document.getElementById('ChillGuy').addEventListener('animationend', function() {
+      this.classList.remove('bounce');
+    });
+
+    // --- Play 3 songs in sequence, loop forever ---
+    const audioFiles = [
+      document.getElementById('audio1'),
+      document.getElementById('audio2'),
+      document.getElementById('audio3')
+    ];
+    let currentAudio = 0;
+
+    function playNextAudio() {
+      // Pause all, just in case
+      audioFiles.forEach(a => { a.pause(); a.currentTime = 0; });
+      audioFiles[currentAudio].play();
+    }
+
+    // When a song ends, play the next one
+    audioFiles.forEach((audio, idx) => {
+      audio.addEventListener('ended', function() {
+        currentAudio = (idx + 1) % audioFiles.length;
+        playNextAudio();
+      });
+    });
+
+    // Start music after user interaction (required by browsers)
+    function startMusicOnce() {
+      playNextAudio();
+      document.removeEventListener('click', startMusicOnce);
+      document.removeEventListener('keydown', startMusicOnce);
+    }
+    document.addEventListener('click', startMusicOnce);
+    document.addEventListener('keydown', startMusicOnce);
+
+    updateUI();
+  </script>
+</body>
+</html>
