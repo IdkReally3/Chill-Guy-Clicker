@@ -14,3 +14,7 @@ Unlike most other Github Games, The steps are pretty Simple
 4 - Double click the HTML File, and Kaboom!
 
 5 - Now Enjoy Your Came Chill Guys
+
+# Version 1.0 Patch Notes:
+
+- Added The Game :0
