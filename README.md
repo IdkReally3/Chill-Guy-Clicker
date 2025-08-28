@@ -17,12 +17,24 @@ Unlike most other Github Games, The steps are pretty Simple
 
 5 - Now Enjoy Your Game Chill Guys
 
-# Version 1.0 Patch Notes:
+# Version 1.01 Patch Notes:
 
-- Added The Game :0
+- Added Dark Mode
+
+  - Added Light/Dark Mode Toggle
+
+- Fixed Space Bar Related Bugs
+
+- Added "Payed Vacation"
+
+- Improved Game Experience
+  
+- Re-organised Folders/Files
+
+- (BTW) I haven't updated the Github Yet, so those files are still outdated
 
 # Install Link
 
 Version 1: [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
 
-Version 1.01: TBC
+Version 1.01: [Google Drive](https://drive.google.com/file/d/1dXotqUG9e6Ebzefb7cUQ3RHbGnXUc2XU/view?usp=drive_link)
