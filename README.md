@@ -5,7 +5,7 @@ Yeah... It is that simple, but hey this is just the start of what to come of a v
 # Installation Guide
 Unlike most other Github Games, The steps are pretty Simple
 
-1 - Install The ZIP File linked on this repository
+1 - Install The ZIP File linked on this doc
 
 2 - (OPTIONAL) Move the ZIP File to a new folder, just for easier storage
 
@@ -18,3 +18,8 @@ Unlike most other Github Games, The steps are pretty Simple
 # Version 1.0 Patch Notes:
 
 - Added The Game :0
+
+# Install Link
+
+Version 1: [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
+Version 1.01: TBC
