@@ -5,7 +5,9 @@ Yeah... It is that simple, but hey this is just the start of what to come of a v
 # Installation Guide
 Unlike most other Github Games, The steps are pretty Simple
 
-1 - Install The ZIP File linked on this doc
+1 - Click The Google Drive Link on this doc
+
+2 - Download The ZIP File
 
 2 - (OPTIONAL) Move the ZIP File to a new folder, just for easier storage
 
