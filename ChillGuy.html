@@ -6,6 +6,16 @@
   <title>Click Da Chill Guy</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    :root {
+      --bg-light: #e8ff8b;
+      --bg-dark: #232323;
+      --button-light: #ddd728;
+      --button-dark: #444444;
+      --button-hover-light: #c6c01a;
+      --button-hover-dark: #666666;
+      --text-light: #222;
+      --text-dark: #eee;
+    }
     body {
       display: flex;
       flex-direction: column;
@@ -13,7 +23,9 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      background: #e8ff8b;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
     }
     #clickerContainer, #shopContainer {
       display: flex;
@@ -31,7 +43,7 @@
     }
     #ChillGuy:hover {
       transform: scale(1.18);
-      box-shadow: 0 8px 32px 0 #e8ff8b;
+      box-shadow: 0 8px 32px 0 var(--bg-light);
       z-index: 2;
     }
     #ChillGuy.bounce {
@@ -51,12 +63,12 @@
       font-size: 1.2em;
       border-radius: 8px;
       border: none;
-      background: #ddd728;
+      background: var(--button-light);
       color: white;
       transition: background 0.2s;
     }
     button:hover {
-      background: #c6c01a;
+      background: var(--button-hover-light);
     }
     h1, h2, p {
       text-align: center;
@@ -65,9 +77,43 @@
     audio {
       display: none;
     }
+    /* Toggle button styling */
+    #toggleModeBtn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 10;
+      background: var(--button-light);
+      color: var(--text-light);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s, color 0.2s;
+    }
+    #toggleModeBtn:hover {
+      background: var(--button-hover-light);
+    }
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    body.dark-mode button, body.dark-mode #toggleModeBtn {
+      background: var(--button-dark);
+      color: var(--text-dark);
+    }
+    body.dark-mode button:hover, body.dark-mode #toggleModeBtn:hover {
+      background: var(--button-hover-dark);
+    }
+    body.dark-mode #ChillGuy:hover {
+      box-shadow: 0 8px 32px 0 var(--bg-dark);
+    }
   </style>
 </head>
 <body>
+  <button id="toggleModeBtn" onclick="toggleMode()">🌙 Dark Mode</button>
   <div id="clickerContainer">
     <h1>Click Dis Chill Guy!!</h1>
     <p>Chill Points: <span id="money">0</span></p>
@@ -85,6 +131,9 @@
     <p>Cool Glasses: <span id="mps">0</span></p>
     <p>(Cool Glasses give you one more Chill Point Per Second)</p>
     <button onclick="buyMPS()">Buy Cool Glasses (Cost: <span id="mpsCost">50</span> Chill Points)</button>
+    <p>Payed Vacations: <span id="vacations">0</span></p>
+    <p>(Payed Vacations give you 5 more Chill Points Per Second)</p>
+    <button onclick="buyVacation()">Buy Payed Vacation (Cost: <span id="vacationCost">150</span> Chill Points)</button>
   </div>
 
   <!-- Hidden audio elements for background music -->
@@ -98,9 +147,12 @@
     let mpcCost = 10;
     let mpc5 = 0; // Number of Super Lemonades
     let mpc5Cost = 80;
-    let mps = 0; // Money per second
+    let mps = 0; // Money per second (from Cool Glasses)
     let mpsCost = 50;
+    let vacations = 0; // Number of Payed Vacations
+    let vacationCost = 150;
     let mpsInterval = null;
+    let darkMode = false;
 
     function updateUI() {
       document.getElementById('money').textContent = money;
@@ -108,8 +160,10 @@
       document.getElementById('mpcCost').textContent = mpcCost;
       document.getElementById('mpc5').textContent = mpc5;
       document.getElementById('mpc5Cost').textContent = mpc5Cost;
-      document.getElementById('mps').textContent = mps;
+      document.getElementById('mps').textContent = mps + vacations * 5;
       document.getElementById('mpsCost').textContent = mpsCost;
+      document.getElementById('vacations').textContent = vacations;
+      document.getElementById('vacationCost').textContent = vacationCost;
     }
 
     function clickChillGuy() {
@@ -146,12 +200,26 @@
         mps += 1;
         mpsCost = Math.floor(mpsCost * 1.7);
         updateUI();
-        if (!mpsInterval) {
-          mpsInterval = setInterval(() => {
-            money += mps;
-            updateUI();
-          }, 1000);
-        }
+        startMPSInterval();
+      }
+    }
+
+    function buyVacation() {
+      if (money >= vacationCost) {
+        money -= vacationCost;
+        vacations += 1;
+        vacationCost = Math.floor(vacationCost * 1.8);
+        updateUI();
+        startMPSInterval();
+      }
+    }
+
+    function startMPSInterval() {
+      if (!mpsInterval) {
+        mpsInterval = setInterval(() => {
+          money += mps + vacations * 5;
+          updateUI();
+        }, 1000);
       }
     }
 
@@ -206,7 +274,13 @@
     document.addEventListener('click', startMusicOnce);
     document.addEventListener('keydown', startMusicOnce);
 
+    // --- Light/Dark mode toggle ---
+    function toggleMode() {
+      darkMode = !darkMode;
+      document.body.classList.toggle('dark-mode', darkMode);
+      const btn = document.getElementById('toggleModeBtn');
+      btn.textContent = darkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
+
     updateUI();
   </script>
-</body>
-</html>
