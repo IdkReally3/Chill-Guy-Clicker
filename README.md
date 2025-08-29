@@ -31,8 +31,6 @@ Unlike most other Github Games, The steps are pretty Simple
   
 - Re-organised Folders/Files
 
-- (BTW) I haven't updated the Github Yet, so those files are still outdated
-
 # Install Link
 
 Version 1: [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
