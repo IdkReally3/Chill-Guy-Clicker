@@ -17,22 +17,26 @@ Unlike most other Github Games, The steps are pretty Simple
 
 5 - Now Enjoy Your Game Chill Guys
 
-# Version 1.01 Patch Notes:
+# Version 1.02 Patch Notes:
 
-- Added Dark Mode
+- Added Music Toggles
 
-  - Added Light/Dark Mode Toggle
+  - Added The Option to turn off Music
 
-- Fixed Space Bar Related Bugs
+  - & To Change Music
 
-- Added "Payed Vacation"
+- Made Auto-Clicks Smoother
 
-- Improved Game Experience
-  
-- Re-organised Folders/Files
+- Fixed Organisation Bugs
+
+- Added Super Chills to Shop!
+
+- (Sneak Peak) Version 1.05 Will Include A Major Shop Overhaul
 
 # Install Link
 
 Version 1: [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
 
 Version 1.01: [Google Drive](https://drive.google.com/file/d/1dXotqUG9e6Ebzefb7cUQ3RHbGnXUc2XU/view?usp=drive_link)
+
+Version 1.02: [Google Drive](https://drive.google.com/file/d/1JHcBachUvLA7Vo3oqxGnp5NwFdRWNCUd/view?usp=drive_link)
