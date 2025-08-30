@@ -230,19 +230,40 @@
     <p>Chill Lemonades: <span id="mpc">1</span></p>
     <p>(Chill Lemonades add one more chill point per click)</p>
     <button onclick="upgradeMPC()">Buy A Chill Lemonade (Cost: <span id="mpcCost">10</span> Chill Points)</button>
-    <p>Super Lemonades: <span id="mpc5">0</span></p>
-    <p>(Super Lemonades add 5 more chill points per click)</p>
-    <button onclick="upgradeMPC5()">Buy A Super Lemonade (Cost: <span id="mpc5Cost">80</span> Chill Points)</button>
+    <!-- Swapped: Cool Glasses before Super Lemonades -->
     <p>Cool Glasses: <span id="mps">0</span></p>
     <p>(Cool Glasses give you one more Chill Point Per Second)</p>
     <button onclick="buyMPS()">Buy Cool Glasses (Cost: <span id="mpsCost">50</span> Chill Points)</button>
+    <p>Super Lemonades: <span id="mpc5">0</span></p>
+    <p>(Super Lemonades add 5 more chill points per click)</p>
+    <button onclick="upgradeMPC5()">Buy A Super Lemonade (Cost: <span id="mpc5Cost">80</span> Chill Points)</button>
     <p>Payed Vacations: <span id="vacations">0</span></p>
     <p>(Payed Vacations give you 5 more Chill Points Per Second)</p>
     <button onclick="buyVacation()">Buy Payed Vacation (Cost: <span id="vacationCost">150</span> Chill Points)</button>
     <!-- ChillMaxing upgrade -->
     <p>Super Chills: <span id="chillmaxing">0</span></p>
     <p>(Super Chills gives you 10 more chill points per click)</p>
-    <button onclick="buyChillMaxing()">Buy Super (Cost: <span id="chillmaxingCost">1000</span> Chill Points)</button>
+    <button onclick="buyChillMaxing()">Buy Super Chill (Cost: <span id="chillmaxingCost">1000</span> Chill Points)</button>
+    <!-- New Upgrades -->
+    <p>Sweet Pie: <span id="sweetPie">0</span></p>
+    <p>(Sweet Pies gives you 20 more chill points per click)</p>
+    <button onclick="buySweetPie()">Buy Sweet Pie (Cost: <span id="sweetPieCost">2500</span> Chill Points)</button>
+    <p>Old Radios: <span id="oldRadio">0</span></p>
+    <p>(Old Radio gives you 15 more chill points per second)</p>
+    <button onclick="buyOldRadio()">Buy Old Radio (Cost: <span id="oldRadioCost">6000</span> Chill Points)</button>
+    <p>Tropical Smoothies: <span id="tropicalSmoothie">0</span></p>
+    <p>(Tropical Smoothie gives you 50 more chill points per click)</p>
+    <button onclick="buyTropicalSmoothie()">Buy Tropical Smoothie (Cost: <span id="tropicalSmoothieCost">12000</span> Chill Points)</button>
+    <p>Chill Coconuts: <span id="chillCoconut">0</span></p>
+    <p>(Chill Coconut gives you 75 more chill points per click)</p>
+    <button onclick="buyChillCoconut()">Buy Chill Coconut (Cost: <span id="chillCoconutCost">25000</span> Chill Points)</button>
+  </div>
+  <!-- Achievements Section -->
+  <div id="achievementsContainer" style="margin-top:32px; text-align:center;">
+    <h2>Achievements🏅</h2>
+    <ul id="achievementsList" style="list-style:none; padding:0; max-width:350px; margin:0 auto;">
+      <!-- Achievements will be populated here -->
+    </ul>
   </div>
 
   <!-- Hidden audio elements for background music -->
@@ -255,13 +276,22 @@
     let mpc = 1; // Money per click (from Lemonades)
     let mpcCost = 20;
     let mpc5 = 0; // Number of Super Lemonades
-    let mpc5Cost = 150;
+    let mpc5Cost = 300;
     let mps = 0; // Money per second (from Cool Glasses)
-    let mpsCost = 80;
+    let mpsCost = 100;
     let vacations = 0; // Number of Payed Vacations
-    let vacationCost = 250;
+    let vacationCost = 600;
     let chillmaxing = 0; // Number of ChillMaxing upgrades
     let chillmaxingCost = 1000;
+    // New upgrades
+    let sweetPie = 0;
+    let sweetPieCost = 2500;
+    let oldRadio = 0;
+    let oldRadioCost = 6000;
+    let tropicalSmoothie = 0;
+    let tropicalSmoothieCost = 12000;
+    let chillCoconut = 0;
+    let chillCoconutCost = 25000;
     let mpsInterval = null;
     let darkMode = false;
 
@@ -338,22 +368,52 @@
     document.addEventListener('keydown', startMusicOnce);
 
     // --- Game logic ---
+    // Achievements data
+    const achievements = [
+      { id: "firstClick", name: "First Click!", desc: "Click the Chill Guy once.", unlocked: false, check: () => totalClicks >= 1 },
+      { id: "lemonadeBuyer", name: "Lemonade Stand", desc: "Buy your first Chill Lemonade.", unlocked: false, check: () => mpc > 1 },
+      { id: "superChill", name: "Super Chill", desc: "Buy your first Super Chill.", unlocked: false, check: () => chillmaxing > 0 },
+      { id: "sweetPie", name: "Sweet Tooth", desc: "Buy your first Sweet Pie.", unlocked: false, check: () => sweetPie > 0 },
+      { id: "radioStar", name: "Radio Star", desc: "Buy your first Old Radio.", unlocked: false, check: () => oldRadio > 0 },
+      { id: "smoothie", name: "Smooth Operator", desc: "Buy your first Tropical Smoothie.", unlocked: false, check: () => tropicalSmoothie > 0 },
+      { id: "coconut", name: "Coconut King", desc: "Buy your first Chill Coconut.", unlocked: false, check: () => chillCoconut > 0 },
+      { id: "millionaire", name: "Chill Millionaire", desc: "Reach 1,000,000 Chill Points.", unlocked: false, check: () => money >= 1000000 },
+      { id: "autoChill", name: "Auto Chill", desc: "Earn at least 100 Chill Points per second.", unlocked: false, check: () => (mps + vacations * 5 + oldRadio * 15) >= 100 },
+      { id: "clickMaster", name: "Click Master", desc: "Earn at least 500 Chill Points per click.", unlocked: false, check: () => (mpc + mpc5 * 5 + chillmaxing * 10 + sweetPie * 20 + tropicalSmoothie * 50 + chillCoconut * 75) >= 500 }
+    ];
+    let totalClicks = 0;
+
     function updateUI() {
       document.getElementById('money').textContent = money;
       document.getElementById('mpc').textContent = mpc;
       document.getElementById('mpcCost').textContent = mpcCost;
       document.getElementById('mpc5').textContent = mpc5;
       document.getElementById('mpc5Cost').textContent = mpc5Cost;
-      document.getElementById('mps').textContent = mps + vacations * 5;
+      document.getElementById('mps').textContent = mps + vacations * 5 + oldRadio * 15;
       document.getElementById('mpsCost').textContent = mpsCost;
       document.getElementById('vacations').textContent = vacations;
       document.getElementById('vacationCost').textContent = vacationCost;
       document.getElementById('chillmaxing').textContent = chillmaxing;
       document.getElementById('chillmaxingCost').textContent = chillmaxingCost;
+      document.getElementById('sweetPie').textContent = sweetPie;
+      document.getElementById('sweetPieCost').textContent = sweetPieCost;
+      document.getElementById('oldRadio').textContent = oldRadio;
+      document.getElementById('oldRadioCost').textContent = oldRadioCost;
+      document.getElementById('tropicalSmoothie').textContent = tropicalSmoothie;
+      document.getElementById('tropicalSmoothieCost').textContent = tropicalSmoothieCost;
+      document.getElementById('chillCoconut').textContent = chillCoconut;
+      document.getElementById('chillCoconutCost').textContent = chillCoconutCost;
+      updateAchievementsUI();
     }
 
     function clickChillGuy() {
-      money += mpc + mpc5 * 5 + chillmaxing * 10;
+      money += mpc
+        + mpc5 * 5
+        + chillmaxing * 10
+        + sweetPie * 20
+        + tropicalSmoothie * 50
+        + chillCoconut * 75;
+      totalClicks += 1;
       updateUI();
       // Bounce effect
       const chillGuy = document.getElementById('ChillGuy');
@@ -433,11 +493,43 @@
         updateUI();
       }
     }
-
+    function buySweetPie() {
+      if (money >= sweetPieCost) {
+        money -= sweetPieCost;
+        sweetPie += 1;
+        sweetPieCost = Math.floor(sweetPieCost * 1.8);
+        updateUI();
+      }
+    }
+    function buyOldRadio() {
+      if (money >= oldRadioCost) {
+        money -= oldRadioCost;
+        oldRadio += 1;
+        oldRadioCost = Math.floor(oldRadioCost * 1.8);
+        updateUI();
+        startMPSInterval();
+      }
+    }
+    function buyTropicalSmoothie() {
+      if (money >= tropicalSmoothieCost) {
+        money -= tropicalSmoothieCost;
+        tropicalSmoothie += 1;
+        tropicalSmoothieCost = Math.floor(tropicalSmoothieCost * 1.8);
+        updateUI();
+      }
+    }
+    function buyChillCoconut() {
+      if (money >= chillCoconutCost) {
+        money -= chillCoconutCost;
+        chillCoconut += 1;
+        chillCoconutCost = Math.floor(chillCoconutCost * 1.8);
+        updateUI();
+      }
+    }
     function startMPSInterval() {
       if (!mpsInterval) {
         mpsInterval = setInterval(() => {
-          money += mps + vacations * 1;
+          money += mps + vacations * 1 + oldRadio * 15;
           updateUI();
         }, 200);
       }
@@ -468,7 +560,27 @@
       darkMode = !darkMode;
       document.body.classList.toggle('dark-mode', darkMode);
       const btn = document.getElementById('toggleModeBtn');
-      btn.textContent = darkMode ? 'Light Mode' : 'Dark Mode';
+      btn.textContent = darkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
+
+    // Achievements logic
+    function updateAchievementsUI() {
+      const list = document.getElementById('achievementsList');
+      list.innerHTML = '';
+      achievements.forEach(a => {
+        if (!a.unlocked && a.check()) {
+          a.unlocked = true;
+        }
+        const li = document.createElement('li');
+        li.style.margin = "8px 0";
+        li.style.padding = "6px 10px";
+        li.style.borderRadius = "8px";
+        li.style.background = a.unlocked ? "#e8ff8b" : "#eee";
+        li.style.color = a.unlocked ? "#222" : "#aaa";
+        li.style.opacity = a.unlocked ? "1" : "0.5";
+        li.innerHTML = `<strong>${a.name}</strong> - <span style="font-size:0.95em;">${a.desc}</span>` + (a.unlocked ? ' <span style="color:#6c3;">✔️</span>' : '');
+        list.appendChild(li);
+      });
     }
 
     updateUI();
