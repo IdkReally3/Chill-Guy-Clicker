@@ -17,26 +17,32 @@ Unlike most other Github Games, The steps are pretty Simple
 
 5 - Now Enjoy Your Game Chill Guys
 
-# Version 1.02 Patch Notes:
+# Version 1.05 Patch Notes:
 
 - Added Music Toggles
 
-  - Added The Option to turn off Music
+  - Added Achievements!
 
-  - & To Change Music
-
-- Made Auto-Clicks Smoother
-
-- Fixed Organisation Bugs
-
-- Added Super Chills to Shop!
-
-- (Sneak Peak) Version 1.05 Will Include A Major Shop Overhaul
+  - Tweaked Button Speeds, and Text Display
+ 
+  - Added New Items to Buy!
+ 
+      - Sweet Pie
+   
+      - Old Radio
+   
+      - Tropical Smoothie
+   
+      - Chill Coconut
+   
+    - Fixed Display Bugs
 
 # Install Link
 
-Version 1: [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
+Version 1 (Leaving Soon): [Google Drive](https://drive.google.com/file/d/1OM5jrpsBXnuhxZFD6yUGx-gZdCN2jUmv/view?usp=drive_link)
 
 Version 1.01: [Google Drive](https://drive.google.com/file/d/1dXotqUG9e6Ebzefb7cUQ3RHbGnXUc2XU/view?usp=drive_link)
 
 Version 1.02: [Google Drive](https://drive.google.com/file/d/1JHcBachUvLA7Vo3oqxGnp5NwFdRWNCUd/view?usp=drive_link)
+
+Version 1.05: [Google Drive](https://drive.google.com/file/d/1zcFd2Lonhrn3bDLDhG-pzslRz5w7DwJ9/view?usp=drive_link)
