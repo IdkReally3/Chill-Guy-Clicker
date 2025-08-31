@@ -215,6 +215,8 @@
       <option value="0">Fluffing a Duck</option>
       <option value="1">Pixel Peeker Polka</option>
       <option value="2">Move Forward</option>
+      <option value="3">Radio Martini</option>
+      <option value="4">The Builder</option>
     </select>
     <button id="musicPlayPauseBtn">⏸️</button>
     <span id="currentSong">Now Playing: Fluffing a Duck</span>
@@ -249,14 +251,17 @@
     <p>(Sweet Pies gives you 20 more chill points per click)</p>
     <button onclick="buySweetPie()">Buy Sweet Pie (Cost: <span id="sweetPieCost">2500</span> Chill Points)</button>
     <p>Old Radios: <span id="oldRadio">0</span></p>
-    <p>(Old Radio gives you 15 more chill points per second)</p>
+    <p>(Old Radios gives you 15 more chill points per second)</p>
     <button onclick="buyOldRadio()">Buy Old Radio (Cost: <span id="oldRadioCost">6000</span> Chill Points)</button>
     <p>Tropical Smoothies: <span id="tropicalSmoothie">0</span></p>
-    <p>(Tropical Smoothie gives you 50 more chill points per click)</p>
+    <p>(Tropical Smoothies gives you 50 more chill points per click)</p>
     <button onclick="buyTropicalSmoothie()">Buy Tropical Smoothie (Cost: <span id="tropicalSmoothieCost">12000</span> Chill Points)</button>
     <p>Chill Coconuts: <span id="chillCoconut">0</span></p>
-    <p>(Chill Coconut gives you 75 more chill points per click)</p>
+    <p>(Chill Coconuts gives you 75 more chill points per click)</p>
     <button onclick="buyChillCoconut()">Buy Chill Coconut (Cost: <span id="chillCoconutCost">25000</span> Chill Points)</button>
+    <p>Chilled Icebergs: <span id="Iceberg">0</span></p>
+    <p>(Chilled Icebergs gives you 50 more chill points per second)</p>
+    <button onclick="buyIceberg()">Buy Chilled Iceberg (Cost: <span id="IcebergCost">100000</span> Chill Points)</button>
   </div>
   <!-- Achievements Section -->
   <div id="achievementsContainer" style="margin-top:32px; text-align:center;">
@@ -270,6 +275,8 @@
   <audio id="audio1" src="Audio/Fluffing a Duck [TubeRipper.com].mp3"></audio>
   <audio id="audio2" src="Audio/Kevin MacLeod Pixel Peeker Polka - faster [TubeRipper.com].mp3"></audio>
   <audio id="audio3" src="Audio/Move Forward [TubeRipper.com].mp3"></audio>
+  <audio id="audio4" src="Audio/Radio Martini.mp3"></audio>
+  <audio id="audio5" src="Audio/The-Builder.mp3"></audio>
 
   <script>
     let money = 0;
@@ -292,6 +299,8 @@
     let tropicalSmoothieCost = 12000;
     let chillCoconut = 0;
     let chillCoconutCost = 25000;
+    let Iceberg = 0;
+    let IcebergCost = 100000;
     let mpsInterval = null;
     let darkMode = false;
 
@@ -299,12 +308,16 @@
     const audioFiles = [
       document.getElementById('audio1'),
       document.getElementById('audio2'),
-      document.getElementById('audio3')
+      document.getElementById('audio3'),
+      document.getElementById('audio4'),
+      document.getElementById('audio5')
     ];
     const songNames = [
       "Fluffing a Duck",
       "Pixel Peeker Polka",
-      "Move Forward"
+      "Move Forward",
+      "Radio Martini",
+      "The Builder"
     ];
     let currentAudio = 0;
     let isPlaying = true;
@@ -371,14 +384,17 @@
     // Achievements data
     const achievements = [
       { id: "firstClick", name: "First Click!", desc: "Click the Chill Guy once.", unlocked: false, check: () => totalClicks >= 1 },
-      { id: "lemonadeBuyer", name: "Lemonade Stand", desc: "Buy your first Chill Lemonade.", unlocked: false, check: () => mpc > 1 },
+      { id: "lemonadeBuyer", name: "Lemonade Stand", desc: "Buy your first Ever Chill Lemonade.", unlocked: false, check: () => mpc > 1 },
       { id: "superChill", name: "Super Chill", desc: "Buy your first Super Chill.", unlocked: false, check: () => chillmaxing > 0 },
+      { id: "duperchill", name: "Super Duper Chill", desc: "Buy 10 Super Chills!", unlocked: false, check: () => chillmaxing >= 10 },
       { id: "sweetPie", name: "Sweet Tooth", desc: "Buy your first Sweet Pie.", unlocked: false, check: () => sweetPie > 0 },
       { id: "radioStar", name: "Radio Star", desc: "Buy your first Old Radio.", unlocked: false, check: () => oldRadio > 0 },
       { id: "smoothie", name: "Smooth Operator", desc: "Buy your first Tropical Smoothie.", unlocked: false, check: () => tropicalSmoothie > 0 },
       { id: "coconut", name: "Coconut King", desc: "Buy your first Chill Coconut.", unlocked: false, check: () => chillCoconut > 0 },
+      { id: "ChilledOut", name: "Chill Out!", desc: "Buy your first Chilled Iceberg.", unlocked: false, check: () => Iceberg > 0 },
+      { id: "Rich", name: "Super Shopper", desc: "Buy 5 of Each Upgrade!", unlocked: false, check: () => mpc >= 5 && mpc5 >= 5 && mps >= 5 && vacations >= 5 && chillmaxing >= 5 && sweetPie >= 5 && oldRadio >= 5 && tropicalSmoothie >= 5 && chillCoconut >= 5 && Iceberg >= 5 },
       { id: "millionaire", name: "Chill Millionaire", desc: "Reach 1,000,000 Chill Points.", unlocked: false, check: () => money >= 1000000 },
-      { id: "autoChill", name: "Auto Chill", desc: "Earn at least 100 Chill Points per second.", unlocked: false, check: () => (mps + vacations * 5 + oldRadio * 15) >= 100 },
+      { id: "autoChill", name: "Auto Chiller", desc: "Earn at least 100 Chill Points per second.", unlocked: false, check: () => (mps + vacations * 5 + oldRadio * 15) >= 100 },
       { id: "clickMaster", name: "Click Master", desc: "Earn at least 500 Chill Points per click.", unlocked: false, check: () => (mpc + mpc5 * 5 + chillmaxing * 10 + sweetPie * 20 + tropicalSmoothie * 50 + chillCoconut * 75) >= 500 }
     ];
     let totalClicks = 0;
@@ -388,7 +404,7 @@
       document.getElementById('mpc').textContent = mpc;
       document.getElementById('mpcCost').textContent = mpcCost;
       document.getElementById('mpc5').textContent = mpc5;
-      document.getElementById('mpc5Cost').textContent = mpc5Cost;
+      document.getElementById('mpc5Cost').textContent = mpc5Cost; 
       document.getElementById('mps').textContent = mps + vacations * 5 + oldRadio * 15;
       document.getElementById('mpsCost').textContent = mpsCost;
       document.getElementById('vacations').textContent = vacations;
@@ -403,6 +419,8 @@
       document.getElementById('tropicalSmoothieCost').textContent = tropicalSmoothieCost;
       document.getElementById('chillCoconut').textContent = chillCoconut;
       document.getElementById('chillCoconutCost').textContent = chillCoconutCost;
+      document.getElementById('Iceberg').textContent = Iceberg;
+      document.getElementById('IcebergCost').textContent = IcebergCost;
       updateAchievementsUI();
     }
 
@@ -464,27 +482,15 @@
         updateUI();
       }
     }
-
-    function buyMPS() {
-      if (money >= mpsCost) {
-        money -= mpsCost;
-        mps += 1;
-        mpsCost = Math.floor(mpsCost * 1.7);
+    function buyOldRadio() {
+      if (money >= oldRadioCost) {
+        money -= oldRadioCost;
+        oldRadio += 1;
+        oldRadioCost = Math.floor(oldRadioCost * 1.8);
         updateUI();
         startMPSInterval();
       }
     }
-
-    function buyVacation() {
-      if (money >= vacationCost) {
-        money -= vacationCost;
-        vacations += 1;
-        vacationCost = Math.floor(vacationCost * 1.8);
-        updateUI();
-        startMPSInterval();
-      }
-    }
-
     function buyChillMaxing() {
       if (money >= chillmaxingCost) {
         money -= chillmaxingCost;
@@ -499,15 +505,6 @@
         sweetPie += 1;
         sweetPieCost = Math.floor(sweetPieCost * 1.8);
         updateUI();
-      }
-    }
-    function buyOldRadio() {
-      if (money >= oldRadioCost) {
-        money -= oldRadioCost;
-        oldRadio += 1;
-        oldRadioCost = Math.floor(oldRadioCost * 1.8);
-        updateUI();
-        startMPSInterval();
       }
     }
     function buyTropicalSmoothie() {
@@ -526,12 +523,25 @@
         updateUI();
       }
     }
+    function buyIceberg() {
+      if (money >= IcebergCost) {
+        money -= IcebergCost;
+        Iceberg += 1;
+        IcebergCost = Math.floor(IcebergCost * 1.8);
+        updateUI();
+        startMPSInterval();
+      }
+    }
     function startMPSInterval() {
       if (!mpsInterval) {
         mpsInterval = setInterval(() => {
-          money += mps + vacations * 1 + oldRadio * 15;
+          money += vacations * 1 + oldRadio * 3 + Iceberg * 10; // 1/5th of mps every 200ms
           updateUI();
         }, 200);
+        mpsInterval = setInterval(() => {
+          money += mps * 1
+          updateUI();
+        }, 1000);
       }
     }
 
