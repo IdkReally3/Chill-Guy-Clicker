@@ -11,31 +11,27 @@ Unlike most other Github Games, The steps are pretty Simple
 
 2 - (OPTIONAL) Move the ZIP File to a new folder, just for easier storage
 
-3 - Unzip The ZIP File and open the folder that was extracted
+3 - Open (Double Click) The ZIP File which should Open a Reading View
 
 4 - Double click the HTML File, and Kaboom!
 
 5 - Now Enjoy Your Game Chill Guys
 
-# Version 1.05 Patch Notes:
+# Version 1.07 Patch Notes:
 
-- Added Music Toggles
+- Fixed MAJOR Bugs!
 
-  - Added Achievements!
+- Added More Songs
 
-  - Tweaked Button Speeds, and Text Display
+  - Radio Martini (Sped Up)
  
-  - Added New Items to Buy!
+  - The Builder
  
-      - Sweet Pie
-   
-      - Old Radio
-   
-      - Tropical Smoothie
-   
-      - Chill Coconut
-   
-    - Fixed Display Bugs
+- Added More Achievements
+
+- Re-organised Code, ready for V1.08
+
+- Added The Iceberg Upgrade
 
 # Install Link
 
@@ -46,3 +42,11 @@ Version 1.01: [Google Drive](https://drive.google.com/file/d/1dXotqUG9e6Ebzefb7c
 Version 1.02: [Google Drive](https://drive.google.com/file/d/1JHcBachUvLA7Vo3oqxGnp5NwFdRWNCUd/view?usp=drive_link)
 
 Version 1.05: [Google Drive](https://drive.google.com/file/d/1zcFd2Lonhrn3bDLDhG-pzslRz5w7DwJ9/view?usp=drive_link)
+
+Version 1.07: [Google Drive](https://drive.google.com/file/d/1ebdoiQv6qjrA6HvT-kjodDzBjI72kLdO/view?usp=drive_link)
+
+# IMPORTANT NOTICES
+
+- VERSION 1 LEAVING SOON
+
+- Chill Guy Clicker Is Coming To Itch.io In Version 1.1!!
